@@ -20,7 +20,7 @@ import fr.runadium.magasin.dao.ProductRepository;
 import fr.runadium.magasin.model.Produit;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api")
 public class ProduitController {
 
 	@Autowired
@@ -30,7 +30,7 @@ public class ProduitController {
 	/***********/ 
 	// Get all products
 	/**********/
-	@GetMapping("/all")
+	@GetMapping("/products")
 	public List<Produit> getAllProducts() {
 		List<Produit> products = new ArrayList<>();
 		produitRepository.findAll().forEach(products::add);
@@ -42,7 +42,7 @@ public class ProduitController {
 	// Get one product
 	/**********/ 
 	
-	@GetMapping("/{id}")
+	@GetMapping("/products/{id}")
 	public Optional<Produit> getOneProduct(@PathVariable("id") long id) {
 		return produitRepository.findById(id);
 	}
@@ -51,7 +51,7 @@ public class ProduitController {
 	// Delete one product
 	/**********/ 
 	
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/products/{id}")
 	public ResponseEntity<String> deleteProduct(@PathVariable("id") long id) {
 		
 		produitRepository.deleteById(id);
@@ -62,7 +62,7 @@ public class ProduitController {
 	// Update one product
 	/**********/ 
 	
-	@PutMapping("/update/{id}")
+	@PutMapping("/products/{id}")
 	public ResponseEntity<Produit> updateProduct(@PathVariable("id") long id, @RequestBody Produit produit) {
 		System.out.println("Update product with ID = " + id + "...");
 
@@ -82,7 +82,7 @@ public class ProduitController {
 	// Create one product
 	/**********/
 	
-	@PostMapping(value = "/create")
+	@PostMapping(value = "/products")
 	public Produit createProduct(@RequestBody Produit produit) {
 
 		return produitRepository.save(produit);
